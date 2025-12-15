@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#075e54">
+    <meta name="description" content="App de chat em tempo real">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Chat App">
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <title>Chat App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="status-indicator" id="status"></div>
+                <h1>Chat App</h1>
+                <button class="menu-btn" onclick="mostrarMenu()">⋮</button>
+            </div>
+        </header>
+
+        <!-- Menu lateral -->
+        <div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
+        <div class="menu-lateral" id="menuLateral">
+            <div class="menu-header">
+                <h2>Menu</h2>
+                <button onclick="fecharMenu()">✕</button>
+            </div>
+            <div class="menu-content">
+                <button onclick="enviarComando('/help')">📋 Ajuda</button>
+                <button onclick="enviarComando('/hora')">🕐 Hora Atual</button>
+                <button onclick="limparChat()">🗑️ Limpar Chat</button>
+                <button onclick="instalarApp()">📲 Instalar App</button>
+            </div>
+        </div>
+
+        <!-- Área de mensagens -->
+        <div class="messages-container" id="messagesContainer">
+            <div class="welcome-message">
+                <div class="welcome-icon">👋</div>
+                <h2>Bem-vindo ao Chat App!</h2>
+                <p>Envie uma mensagem para começar</p>
+                <button class="btn-primary" onclick="enviarComando('/help')">
+                    Ver comandos disponíveis
+                </button>
+            </div>
+        </div>
+
+        <!-- Área de digitação -->
+        <footer class="input-container">
+            <button class="attach-btn" onclick="mostrarOpcoes()">+</button>
+            <input 
+                type="text" 
+                id="messageInput" 
+                placeholder="Digite uma mensagem..." 
+                autocomplete="off"
+                onkeypress="handleKeyPress(event)"
+            >
+            <button class="send-btn" onclick="enviarMensagem()">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                </svg>
+            </button>
+        </footer>
+    </div>
+
+    <!-- Toast de notificação -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Script do app -->
+    <script src="app.js"></script>
+</body>
+</html>
