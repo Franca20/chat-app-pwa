@@ -1,22 +1,6 @@
 // Configuração e estado do app
-// Detecta automaticamente se está em produção ou local
-const isProd = window.location.hostname !== 'localhost' && 
-               window.location.hostname !== '127.0.0.1' &&
-               !window.location.hostname.startsWith('192.168');
-
-const getWebSocketUrl = () => {
-    if (isProd) {
-        // Em produção, usa o domínio atual
-        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-        return `${protocol}//${window.location.hostname}/ws`;
-    } else {
-        // Local: pode usar localhost ou IP da rede
-        return 'ws://192.168.1.2:8000/ws';
-    }
-};
-
 const CONFIG = {
-    WS_URL: getWebSocketUrl(),
+    WS_URL: 'wss://worker-production-47e8.up.railway.app/ws',
     USER_ID: 'user_' + Math.random().toString(36).substr(2, 9)
 };
 
