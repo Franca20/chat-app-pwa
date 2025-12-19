@@ -31,6 +31,26 @@ app.add_middleware(
 # Gerenciador de chat
 chat_handler = ChatHandler()
 
+# Health check endpoint
+@app.get("/")
+async def root():
+    return {
+        "status": "ok",
+        "message": "Chat App API is running",
+        "version": "1.0.0",
+        "endpoints": {
+            "websocket": "/ws/{user_id}",
+            "health": "/health"
+        }
+    }
+
+@app.get("/health")
+async def health():
+    return {
+        "status": "healthy",
+        "connections": len(manager.active_connections) if 'manager' in globals() else 0
+    }
+
 # Armazena conexões WebSocket ativas
 class ConnectionManager:
     def __init__(self):
