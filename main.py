@@ -9,6 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from typing import Dict, Set
 import json
 import logging
+import os
 from pathlib import Path
 
 from chat_handler import ChatHandler
@@ -142,6 +143,8 @@ async def websocket_endpoint(websocket: WebSocket, user_id: str):
         manager.disconnect(user_id)
 
 
-# Removido o bloco if __name__ == "__main__" 
-# para garantir que o Railway use o Procfile/railway.json
-# Para rodar localmente: uvicorn main:app --reload --port 8000
+# Configuração para Railway - detecta porta automaticamente
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
