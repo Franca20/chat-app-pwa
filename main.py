@@ -142,24 +142,6 @@ async def websocket_endpoint(websocket: WebSocket, user_id: str):
         manager.disconnect(user_id)
 
 
-if __name__ == "__main__":
-    import uvicorn
-    import os
-    
-    # Pega a porta do ambiente (Railway) ou usa 8000 localmente
-    port = int(os.getenv("PORT", 8000))
-    
-    print("=" * 60)
-    print("🚀 Iniciando Chat App Backend")
-    print("=" * 60)
-    print(f"📡 Servidor: http://0.0.0.0:{port}")
-    print(f"🔌 WebSocket: ws://0.0.0.0:{port}/ws/{{user_id}}")
-    print("📖 Docs: http://0.0.0.0:{port}/docs")
-    print("=" * 60)
-    
-    uvicorn.run(
-        "main:app",
-        host="0.0.0.0",
-        port=port,
-        log_level="info"
-    )
+# Removido o bloco if __name__ == "__main__" 
+# para garantir que o Railway use o Procfile/railway.json
+# Para rodar localmente: uvicorn main:app --reload --port 8000
