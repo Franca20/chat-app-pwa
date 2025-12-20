@@ -52,6 +52,19 @@ async def health():
         "connections": len(manager.active_connections) if 'manager' in globals() else 0
     }
 
+# Endpoint de teste via HTTP (útil para automação/cURL)
+@app.get("/test")
+async def test_get(mensagem: str, user_id: str = "teste"):
+    resposta = chat_handler.processar_mensagem(user_id, mensagem)
+    return resposta
+
+@app.post("/test")
+async def test_post(payload: dict):
+    user_id = payload.get("user_id", "teste")
+    mensagem = payload.get("mensagem", "")
+    resposta = chat_handler.processar_mensagem(user_id, mensagem)
+    return resposta
+
 # Armazena conexões WebSocket ativas
 class ConnectionManager:
     def __init__(self):
